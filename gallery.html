@@ -6,6 +6,90 @@
     <meta name="description" content="Galería de imágenes de Laforêt Group, mostrando nuestra colección de moda.">
     <title>Galería | Laforêt Group</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos para el modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #333; /* Fondo oscuro */
+            color: #f1f1f1; /* Texto claro */
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+        }
+        .close {
+            color: #f1f1f1; /* Color claro para el botón de cerrar */
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #ccc; /* Color claro al pasar el ratón */
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .delete-btn {
+            cursor: pointer;
+            color: red;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 10px;
+            display: none; /* Ocultar por defecto */
+        }
+        /* Estilos para el botón de subir imagen */
+        #upload-btn {
+            position: fixed; /* Fijar el botón */
+            bottom: 20px; /* Espacio desde el borde inferior */
+            right: 20px; /* Espacio desde el borde derecho */
+            padding: 10px 20px;
+            background-color: #fff; /* Fondo blanco */
+            color: #000; /* Texto negro */
+            border: 2px solid #000; /* Borde negro */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        #upload-btn:hover {
+            background-color: #f8f9fa; /* Color de fondo al pasar el ratón */
+            border-color: #000; /* Borde negro al pasar el ratón */
+        }
+        /* Estilos para la galería */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
+            gap: 10px; /* Espacio entre las imágenes */
+            padding: 0;
+            margin: 0;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #ddd; /* Borde sutil para las imágenes */
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto; /* Mantener la proporción de la imagen */
+            display: block;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -39,15 +123,26 @@
     </section>
 
     <main class="container">
-        <section class="gallery">
-            <h2>Nuestras Imágenes</h2>
-            <!-- Las imágenes de ejemplo se han eliminado -->
+        <section class="gallery" id="gallery-images">
+            <!-- Las imágenes se cargarán aquí -->
         </section>
     </main>
 
     <footer class="container">
         <p>&copy; 2024 Laforêt Group. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Modal para subir imagen -->
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h2>Subir Imagen</h2>
+            <input type="text" id="image-link" placeholder="Pega el enlace de Imgur aquí">
+            <button id="submit-image">Subir</button>
+        </div>
+    </div>
+
+    <button id="upload-btn" style="display: none;">Subir Imagen</button>
 
     <script>
         // Función para obtener los datos del usuario y actualizar la UI
@@ -60,16 +155,110 @@
                     document.getElementById('user-avatar').src = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : '';
                     document.getElementById('user-name').textContent = user.username;
                     document.getElementById('login-link').style.display = 'none'; // Ocultar el botón de Login si el usuario está autenticado
+                    document.getElementById('upload-btn').style.display = 'inline-block'; // Mostrar el botón de subir imagen
+                    document.querySelectorAll('.delete-btn').forEach(btn => btn.style.display = 'inline'); // Mostrar el botón de eliminar
                 } else {
                     document.getElementById('login-link').style.display = 'block'; // Mostrar el botón de Login si no hay usuario
+                    document.querySelectorAll('.delete-btn').forEach(btn => btn.style.display = 'none'); // Ocultar el botón de eliminar
                 }
             } catch (error) {
                 console.error('Error al obtener la información del usuario:', error);
             }
         }
 
-        // Actualiza la información del usuario al cargar la página
-        window.onload = updateUserInfo;
+        // Abrir y cerrar el modal
+        const modal = document.getElementById("upload-modal");
+        const btn = document.getElementById("upload-btn");
+        const span = document.getElementById("close-modal");
+
+        btn.onclick = function() {
+            modal.style.display = "flex";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Subir imagen
+        document.getElementById('submit-image').onclick = async function() {
+            const link = document.getElementById('image-link').value;
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ link })
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    loadImages(); // Recargar las imágenes para mostrar la nueva
+                    modal.style.display = "none"; // Cerrar el modal
+                } else {
+                    alert(result.error);
+                }
+            } catch (error) {
+                console.error('Error al subir la imagen:', error);
+            }
+        }
+
+        // Cargar imágenes desde el servidor
+        async function loadImages() {
+            try {
+                const response = await fetch('/images');
+                const images = await response.json();
+                const gallery = document.getElementById('gallery-images');
+                gallery.innerHTML = ''; // Limpiar la galería
+                images.forEach(image => {
+                    const imgElement = document.createElement('div');
+                    imgElement.classList.add('gallery-item');
+                    imgElement.innerHTML = `
+                        <img src="${image}" alt="Imagen">
+                        <span class="delete-btn" onclick="deleteImage('${image}')">Eliminar</span>
+                    `;
+                    gallery.appendChild(imgElement);
+                });
+            } catch (error) {
+                console.error('Error al cargar las imágenes:', error);
+            }
+        }
+
+        // Eliminar imagen
+        async function deleteImage(link) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta imagen?')) {
+                try {
+                    const response = await fetch('/delete', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ link })
+                    });
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert(result.message);
+                        loadImages(); // Recargar las imágenes para eliminar la borrada
+                    } else {
+                        alert(result.error);
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar la imagen:', error);
+                }
+            }
+        }
+
+        // Cargar imágenes y actualizar la información del usuario al cargar la página
+        window.onload = () => {
+            updateUserInfo();
+            loadImages();
+        };
     </script>
 </body>
 </html>
