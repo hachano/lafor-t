@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galería de imágenes de Laforêt Group, mostrando nuestra colección de moda.">
+    <title>Galería | Laforêt Group</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Laforêt Group">
+            </div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="about.html">Sobre Nosotros</a></li>
+                <li><a href="magazine.html">Revista</a></li>
+                <li><a href="gallery.html" class="active">Galería</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="testimonials.html">Testimonios</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="/auth/discord" id="login-link">Login</a></li>
+            </ul>
+            <div class="user-info" id="user-info" style="display: none;">
+                <img id="user-avatar" src="" alt="Avatar">
+                <span id="user-name"></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero container">
+        <div class="hero-content">
+            <h1>Galería</h1>
+            <p>Explora nuestra galería de imágenes para ver las últimas colecciones y eventos.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="gallery">
+            <h2>Nuestras Imágenes</h2>
+            <!-- Las imágenes de ejemplo se han eliminado -->
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2024 Laforêt Group. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para obtener los datos del usuario y actualizar la UI
+        async function updateUserInfo() {
+            try {
+                const response = await fetch('/user');
+                const user = await response.json();
+                if (user) {
+                    document.getElementById('user-info').style.display = 'flex';
+                    document.getElementById('user-avatar').src = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : '';
+                    document.getElementById('user-name').textContent = user.username;
+                    document.getElementById('login-link').style.display = 'none'; // Ocultar el botón de Login si el usuario está autenticado
+                } else {
+                    document.getElementById('login-link').style.display = 'block'; // Mostrar el botón de Login si no hay usuario
+                }
+            } catch (error) {
+                console.error('Error al obtener la información del usuario:', error);
+            }
+        }
+
+        // Actualiza la información del usuario al cargar la página
+        window.onload = updateUserInfo;
+    </script>
+</body>
+</html>

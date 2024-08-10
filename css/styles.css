@@ -1,0 +1,576 @@
+/* Estilos básicos */
+body {
+    font-family: Arial, sans-serif;
+    color: #fff;
+    background-color: #000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Contenedor principal con margen general */
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
+    flex: 1;
+}
+
+/* Estilos del encabezado */
+header {
+    background-color: #000;
+    padding: 20px 0; /* Ajuste para el espacio del logo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos del logo */
+header .logo {
+    margin-bottom: 0; /* Sin margen para asegurar alineación vertical con el menú */
+}
+
+header .logo img {
+    height: 100px; /* Aumentar el tamaño del logo */
+    width: auto; /* Mantiene la proporción del logo */
+}
+
+/* Estilos de la barra de navegación */
+nav {
+    display: flex;
+    justify-content: center; /* Centra el menú de navegación */
+    align-items: center;
+    background-color: #000;
+    padding: 0 20px;
+    position: relative;
+    height: 80px; /* Asegura que la barra tenga una altura consistente con el nuevo tamaño del logo */
+}
+
+/* Ajustar el tamaño de los elementos del menú para la alineación vertical */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 5px;
+}
+
+nav a:hover, .nav-menu a.active {
+    color: #000;
+    background-color: #fff;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #000;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+nav li:hover .dropdown {
+    display: block;
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.dropdown a:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Estilos para el contenedor de usuario */
+.user-info {
+    position: fixed;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    height: 80px; /* Mismo que la altura de la barra de navegación */
+    padding: 0 20px; /* Ajusta el espaciado horizontal */
+    top: 8%; /* Centra verticalmente respecto a la ventana del navegador */
+    transform: translateY(-50%); /* Ajusta la posición para centrar */
+}
+
+.user-info img {
+    border-radius: 50%;
+    width: 40px; /* Tamaño de la foto del perfil */
+    height: 40px; /* Tamaño de la foto del perfil */
+    border: 2px solid #fff; /* Borde blanco alrededor de la foto */
+    margin-right: 10px;
+}
+
+.user-info span {
+    font-weight: bold;
+    color: #fff; /* Asegura que el texto sea blanco para mejor visibilidad */
+    border: 2px solid #fff; /* Borde blanco alrededor del nombre de usuario */
+    padding: 5px 10px; /* Ajustado para el tamaño del perfil */
+    border-radius: 5px; /* Bordes redondeados para el texto */
+    background-color: #000; /* Fondo oscuro para el texto */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+/* Estilos de la sección hero */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+}
+
+/* Estilos de la sección de contenido */
+.content-section {
+    padding: 40px 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.content-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.content-section p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Estilos para la sección Sobre Nosotros */
+.intro, .mission, .values {
+    padding: 40px 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.intro h2, .mission h2, .values h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.intro p, .mission p, .values p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Estilos para la sección de valores */
+.values p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Estilos para los recuadros de información */
+.info-box {
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    background-color: #333;
+}
+
+.info-box p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Estilos para los posts */
+.post, .blog-post {
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #333;
+}
+
+.post h3, .blog-post h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.post-meta, .blog-post .post-meta {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.post p, .blog-post p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #000;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.read-more:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Estilos para la galería */
+.gallery {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.gallery img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Estilos para testimonios y FAQs */
+.testimonial, .faq-item {
+    border: 1px solid #444;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.testimonial p, .faq-item p {
+    font-size: 16px;
+}
+
+/* Estilos para botones y campos de entrada */
+button, input[type="submit"] {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="email"] {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Estilos del pie de página */
+footer {
+    background-color: #000;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+}
+
+/* Estilos para iconos sociales */
+.social-icons a {
+    margin: 0 15px;
+}
+
+.social-icons img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Estilo activo para la navegación */
+nav a.active {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Estilos para el formulario de contacto */
+.contact-form {
+    padding: 40px 20px;
+    background-color: #fff;
+    color: #000;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.contact-form h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #fff;
+    color: #000;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-form button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #333;
+}
+
+/* Estilos para los botones de Discord */
+.discord-button {
+    display: inline-block;
+    background-color: #fff;
+    color: #000;
+    padding: 10px 20px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.discord-button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Estilos del blog */
+.blog-categories {
+    margin-top: 20px;
+}
+
+.blog-categories h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.blog-categories ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.blog-categories li {
+    font-size: 18px;
+}
+
+.blog-categories a {
+    text-decoration: none;
+    color: #fff;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.blog-categories a:hover {
+    border-color: #fff;
+}
+
+/* Estilos para artículos del blog */
+.blog-post {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #444;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.blog-post img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.post-content {
+    padding: 20px;
+}
+
+.blog-post h3 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.post-meta {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.blog-post p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none; /* Ocultar el modal por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro con opacidad */
+}
+
+.modal-content {
+    background-color: #000; /* Fondo negro del modal */
+    color: #fff; /* Color del texto */
+    margin: 10% auto; /* Márgenes automáticos para centrar */
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 10px; /* Bordes redondeados */
+    width: 80%; /* Ancho del modal */
+    max-width: 600px; /* Ancho máximo */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); /* Sombra del modal */
+}
+
+.modal h2 {
+    margin-top: 0;
+    font-size: 24px; /* Tamaño de fuente del título */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para el formulario dentro del modal */
+#postForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre los elementos del formulario */
+}
+
+#postForm label {
+    font-size: 16px; /* Tamaño de fuente para las etiquetas */
+}
+
+#postForm input[type="text"],
+#postForm input[type="date"],
+#postForm textarea {
+    width: 100%; /* Ancho completo para los campos de entrada */
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #222; /* Fondo oscuro para los campos */
+    color: #fff; /* Color del texto */
+    font-size: 16px;
+    box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+}
+
+#postForm textarea {
+    resize: vertical; /* Permitir el redimensionamiento vertical */
+    min-height: 100px; /* Altura mínima del área de texto */
+}
+
+#postForm button {
+    background-color: #fff; /* Fondo blanco para el botón */
+    color: #000; /* Texto negro */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    font-size: 16px;
+    align-self: flex-end; /* Alinear el botón al final (derecha) */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#postForm button:hover {
+    background-color: #000; /* Fondo negro al pasar el ratón */
+    color: #fff; /* Texto blanco */
+}
+
+@media (max-width: 768px) {
+    .blog-post {
+        flex-direction: column;
+    }
+
+    .blog-post img {
+        width: 100%;
+    }
+}

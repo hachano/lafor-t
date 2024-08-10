@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contacto con Laforêt Group. Envíanos tus preguntas y comentarios.">
+    <title>Contacto | Laforêt Group</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        async function sendForm(event) {
+            event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+            
+            // Obtener valores del formulario
+            const name = document.getElementById('name').value;
+            const facebrowser = document.getElementById('facebrowser').value;
+            const message = document.getElementById('message').value;
+
+            // Crear el mensaje para Discord
+            const discordMessage = {
+                content: `**Nuevo mensaje de contacto**\n\n**Nombre y Apellido:** ${name}\n**FaceBrowser:** ${facebrowser}\n**Mensaje:** ${message}`
+            };
+
+            try {
+                // Enviar el mensaje al webhook de Discord
+                const response = await fetch('https://discord.com/api/webhooks/1270536526148665354/NTTAwuxqX1y2hRBAwndpbcO_m2UHZg0yPgCu38azDNa1WD4PSae50ZbGgHqAPQ8Us8KB', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(discordMessage)
+                });
+
+                if (response.ok) {
+                    alert('¡Gracias por su mensaje! Un miembro de Laforêt Group se pondrá en contacto mediante usted por FaceBrowser.');
+                    document.getElementById('contact-form').reset(); // Limpiar el formulario
+                } else {
+                    alert('Error al enviar el mensaje.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al enviar el mensaje.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Laforêt Group">
+            </div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="about.html">Sobre Nosotros</a></li>
+                <li><a href="magazine.html">Revista</a></li>
+                <li><a href="gallery.html">Galería</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="testimonials.html">Testimonios</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html" class="active">Contacto</a></li>
+                <li><a href="/auth/discord" id="login-link">Login</a></li>
+            </ul>
+            <div class="user-info" id="user-info" style="display: none;">
+                <img id="user-avatar" src="" alt="Avatar">
+                <span id="user-name"></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero container">
+        <div class="hero-content">
+            <h1>Contacto</h1>
+            <p>Estamos aquí para ayudarte. Ponte en contacto con nosotros para cualquier consulta o comentario.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="contact-form">
+            <h2>Formulario de Contacto</h2>
+            <form id="contact-form" onsubmit="sendForm(event)">
+                <div class="form-group">
+                    <label for="name">Nombre y Apellido (Ejemplo: Liam Walsh):</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="facebrowser">FaceBrowser (Ejemplo: liamcito):</label>
+                    <input type="text" id="facebrowser" name="facebrowser" placeholder="https://facebrowser-es.gta.world/tuusuario" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2024 Laforêt Group. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para obtener los datos del usuario y actualizar la UI
+        async function updateUserInfo() {
+            try {
+                const response = await fetch('/user');
+                const user = await response.json();
+                if (user) {
+                    document.getElementById('user-info').style.display = 'flex';
+                    document.getElementById('user-avatar').src = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : '';
+                    document.getElementById('user-name').textContent = user.username;
+                    document.getElementById('login-link').style.display = 'none'; // Ocultar el botón de Login si el usuario está autenticado
+                } else {
+                    document.getElementById('login-link').style.display = 'block'; // Mostrar el botón de Login si no hay usuario
+                }
+            } catch (error) {
+                console.error('Error al obtener la información del usuario:', error);
+            }
+        }
+
+        // Actualiza la información del usuario al cargar la página
+        window.onload = updateUserInfo;
+    </script>
+</body>
+</html>

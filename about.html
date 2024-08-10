@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sobre Laforêt Group, nuestra misión, visión y valores.">
+    <title>Sobre Nosotros | Laforêt Group</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Laforêt Group">
+            </div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="about.html" class="active">Sobre Nosotros</a></li>
+                <li><a href="magazine.html">Revista</a></li>
+                <li><a href="gallery.html">Galería</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="testimonials.html">Testimonios</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="/auth/discord" id="login-link">Login</a></li>
+            </ul>
+            <div class="user-info" id="user-info" style="display: none;">
+                <img id="user-avatar" src="" alt="Avatar">
+                <span id="user-name"></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero container">
+        <div class="hero-content">
+            <h1>Sobre Nosotros</h1>
+            <p>Conoce más sobre la historia, misión y visión de Laforêt Group. Estamos dedicados a ofrecer la mejor moda y contenido de calidad.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="intro">
+            <h2>Nuestra Historia</h2>
+            <div class="info-box">
+                <p>Laforêt es una revista francesa que revolucionó el mundo de la moda desde su fundación en 1892. Su creador, Marth Luke, tenía una visión única y sofisticada que logró captar la atención de miles de lectores en Francia y más allá de sus fronteras.</p>
+                <br>
+                <p>La revista se convirtió en un referente para la industria de la moda, presentando en sus páginas las últimas tendencias y creando un estilo propio que marcó una época. La combinación de artículos de moda, arte y cultura, junto con fotografías de alta calidad, hizo que Laforêt se destacara entre las demás publicaciones de la época.</p>
+                <br>
+                <p>Tras la muerte de Marth Luke en 1909, la revista pasó a manos de un conglomerado de empresas que supo mantener su esencia y llevarla a un nivel global. En 1916 comenzó a publicarse en Gran Bretaña y en 1920 en Estados Unidos, conquistando no solo Europa, sino también otros continentes.</p>
+                <br>
+                <p>Laforêt se convirtió en la revista de moda más influyente a nivel mundial, con una audiencia fiel y seguidores en más de veinte países. Su estilo elegante y vanguardista la posicionó como un símbolo de la moda internacional, siendo una fuente de inspiración para diseñadores, modelos y amantes de la moda en todo el mundo.</p>
+                <br>
+                <p>Hoy en día, Laforêt sigue siendo una referencia en el mundo de la moda, con su oficina central en París y ediciones en ciudades como Liberty City, Milán, Tokio, entre otras. Su legado perdura a lo largo del tiempo, y su influencia sigue siendo incuestionable en la industria de la moda.</p>
+                <br>
+                <p>La revista Laforêt ha logrado trascender fronteras y generaciones, consolidándose como un icono indiscutible en el mundo de la moda. Actualmente, llega a Los Santos tras el interés del conglomerado en expandirse en esta localidad.</p>
+            </div>
+        </section>
+
+        <section class="mission">
+            <h2>Nuestra Misión</h2>
+            <div class="info-box">
+                <p>En Laforêt Group, nuestra misión es proporcionar moda de alta calidad y contenido valioso a nuestros clientes. Creemos en ofrecer productos que no solo sean elegantes y sofisticados, sino también accesibles y relevantes para nuestra audiencia.</p>
+                <br>
+                <p>Estamos comprometidos con la excelencia en todos los aspectos de nuestro trabajo, desde la selección de materiales hasta el servicio al cliente. Nuestro objetivo es superar las expectativas de nuestros clientes y ofrecer una experiencia única que refleje nuestra pasión por la moda.</p>
+            </div>
+        </section>
+
+        <section class="values">
+            <h2>Nuestros Valores</h2>
+            <div class="info-box">
+                <p><strong>Innovación:</strong> Estamos siempre a la búsqueda de nuevas tendencias y técnicas que nos permitan ofrecer lo mejor en moda y contenido.</p>
+                <p><strong>Calidad:</strong> Cada producto y servicio que ofrecemos cumple con los más altos estándares de calidad.</p>
+                <p><strong>Compromiso:</strong> Nos dedicamos a satisfacer las necesidades y expectativas de nuestros clientes con un enfoque en la excelencia.</p>
+                <p><strong>Sostenibilidad:</strong> Nos esforzamos por adoptar prácticas sostenibles en todos los aspectos de nuestro negocio, desde la producción hasta la distribución.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2024 Laforêt Group. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para obtener los datos del usuario y actualizar la UI
+        async function updateUserInfo() {
+            try {
+                const response = await fetch('/user');
+                const user = await response.json();
+                if (user) {
+                    document.getElementById('user-info').style.display = 'flex';
+                    document.getElementById('user-avatar').src = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : '';
+                    document.getElementById('user-name').textContent = user.username;
+                    document.getElementById('login-link').style.display = 'none'; // Ocultar el botón de Login si el usuario está autenticado
+                } else {
+                    document.getElementById('login-link').style.display = 'block'; // Mostrar el botón de Login si no hay usuario
+                }
+            } catch (error) {
+                console.error('Error al obtener la información del usuario:', error);
+            }
+        }
+
+        // Función para manejar el cierre de sesión
+        async function handleLogout(event) {
+            event.preventDefault(); // Evita el comportamiento por defecto del enlace
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    credentials: 'include', // Asegura que se envíen cookies
+                    headers: {
+                        'Content-Type': 'application/json' // Configura el tipo de contenido
+                    }
+                });
+                if (response.ok) {
+                    console.log('Logout exitoso.');
+                    window.location.href = '/'; // Redirige al usuario a la página de inicio
+                } else {
+                    console.error('Error al cerrar sesión:', await response.text());
+                }
+            } catch (error) {
+                console.error('Error en la solicitud de cierre de sesión:', error);
+            }
+        }
+
+        // Actualiza la información del usuario al cargar la página
+        window.onload = updateUserInfo;
+    </script>
+</body>
+</html>

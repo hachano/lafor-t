@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog de Laforêt Group con las últimas noticias y artículos sobre moda.">
+    <title>Blog | Laforêt Group</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Laforêt Group">
+            </div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="about.html">Sobre Nosotros</a></li>
+                <li><a href="magazine.html">Revista</a></li>
+                <li><a href="gallery.html">Galería</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="testimonials.html">Testimonios</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="/auth/discord" id="login-link">Login</a></li>
+            </ul>
+            <div class="user-info" id="user-info" style="display: none;">
+                <img id="user-avatar" src="" alt="Avatar">
+                <span id="user-name"></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero container">
+        <div class="hero-content">
+            <h1>Blog</h1>
+            <p>Lee nuestros artículos y noticias más recientes sobre moda y estilo.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Sección de categorías del blog -->
+        <section class="blog-categories">
+            <h2>Categorías</h2>
+            <ul>
+                <li><a href="#fashion">Moda</a></li>
+                <li><a href="#lifestyle">Lifestyle</a></li>
+                <li><a href="#trends">Tendencias</a></li>
+                <li><a href="#events">Eventos</a></li>
+            </ul>
+        </section>
+
+        <!-- Sección de artículos de cada categoría -->
+        <section id="fashion" class="blog-category">
+            <h2>Moda</h2>
+            <article class="blog-post">
+                <img src="images/fashion1.jpg" alt="Título del Artículo 1">
+                <div class="post-content">
+                    <h3><a href="article1.html">Título del Artículo 1</a></h3>
+                    <p class="post-meta">Publicado el 12 de Agosto de 2024</p>
+                    <p>Resumen del artículo 1. Lee más sobre las últimas tendencias y noticias en moda.</p>
+                    <a href="article1.html" class="read-more">Leer más</a>
+                </div>
+            </article>
+            <article class="blog-post">
+                <img src="images/fashion2.jpg" alt="Título del Artículo 2">
+                <div class="post-content">
+                    <h3><a href="article2.html">Título del Artículo 2</a></h3>
+                    <p class="post-meta">Publicado el 8 de Agosto de 2024</p>
+                    <p>Resumen del artículo 2. Explora las historias y eventos que marcan el mundo de la moda.</p>
+                    <a href="article2.html" class="read-more">Leer más</a>
+                </div>
+            </article>
+        </section>
+
+        <section id="lifestyle" class="blog-category">
+            <h2>Lifestyle</h2>
+            <article class="blog-post">
+                <img src="images/lifestyle1.jpg" alt="Título del Artículo 3">
+                <div class="post-content">
+                    <h3><a href="article3.html">Título del Artículo 3</a></h3>
+                    <p class="post-meta">Publicado el 5 de Agosto de 2024</p>
+                    <p>Resumen del artículo 3. Descubre consejos y trucos para un estilo de vida elegante y equilibrado.</p>
+                    <a href="article3.html" class="read-more">Leer más</a>
+                </div>
+            </article>
+            <!-- Añadir más artículos de Lifestyle aquí -->
+        </section>
+
+        <section id="trends" class="blog-category">
+            <h2>Tendencias</h2>
+            <article class="blog-post">
+                <img src="images/trend1.jpg" alt="Título del Artículo 4">
+                <div class="post-content">
+                    <h3><a href="article4.html">Título del Artículo 4</a></h3>
+                    <p class="post-meta">Publicado el 1 de Agosto de 2024</p>
+                    <p>Resumen del artículo 4. Lee sobre las últimas tendencias en el mundo de la moda y el estilo.</p>
+                    <a href="article4.html" class="read-more">Leer más</a>
+                </div>
+            </article>
+            <!-- Añadir más artículos de Tendencias aquí -->
+        </section>
+
+        <section id="events" class="blog-category">
+            <h2>Eventos</h2>
+            <article class="blog-post">
+                <img src="images/event1.jpg" alt="Título del Artículo 5">
+                <div class="post-content">
+                    <h3><a href="article5.html">Título del Artículo 5</a></h3>
+                    <p class="post-meta">Publicado el 15 de Julio de 2024</p>
+                    <p>Resumen del artículo 5. Conoce los eventos más importantes y cómo afectan al mundo de la moda.</p>
+                    <a href="article5.html" class="read-more">Leer más</a>
+                </div>
+            </article>
+            <!-- Añadir más artículos de Eventos aquí -->
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2024 Laforêt Group. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para obtener los datos del usuario y actualizar la UI
+        async function updateUserInfo() {
+            try {
+                const response = await fetch('/user');
+                const user = await response.json();
+                if (user) {
+                    document.getElementById('user-info').style.display = 'flex';
+                    document.getElementById('user-avatar').src = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : '';
+                    document.getElementById('user-name').textContent = user.username;
+                    document.getElementById('login-link').style.display = 'none'; // Ocultar el botón de Login si el usuario está autenticado
+                } else {
+                    document.getElementById('login-link').style.display = 'block'; // Mostrar el botón de Login si no hay usuario
+                }
+            } catch (error) {
+                console.error('Error al obtener la información del usuario:', error);
+            }
+        }
+
+        // Actualiza la información del usuario al cargar la página
+        window.onload = updateUserInfo;
+    </script>
+</body>
+</html>

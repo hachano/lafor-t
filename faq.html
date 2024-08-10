@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Preguntas frecuentes sobre Laforêt Group, encuentra respuestas a tus dudas.">
+    <title>FAQ | Laforêt Group</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Laforêt Group">
+            </div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="about.html">Sobre Nosotros</a></li>
+                <li><a href="magazine.html">Revista</a></li>
+                <li><a href="gallery.html">Galería</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="testimonials.html">Testimonios</a></li>
+                <li><a href="faq.html" class="active">FAQ</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li><a href="/auth/discord" id="login-link">Login</a></li>
+            </ul>
+            <div class="user-info" id="user-info" style="display: none;">
+                <img id="user-avatar" src="" alt="Avatar">
+                <span id="user-name"></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero container">
+        <div class="hero-content">
+            <h1>FAQ</h1>
+            <p>Encuentra respuestas a las preguntas más frecuentes sobre nuestros productos y servicios.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="faq">
+            <h2>Guía de Primeros Pasos</h2>
+            <div class="faq-item">
+                <h3>¡Bienvenido/a al Discord de Laforêt!</h3>
+                <p>Estamos encantados de que te hayas unido a nuestra comunidad. Aquí tienes algunos primeros pasos para orientarte:</p>
+            </div>
+            <div class="faq-item">
+                <h3>Empleo</h3>
+                <p>Si estás interesado en trabajar con nosotros, por favor dirígete al canal de empleo y abre un ticket. Te solicitaremos información básica para que puedas unirte a nuestra entidad.</p>
+                <a href="https://discord.com/channels/1253828405833502801/1253859477887914014" target="_blank" rel="noopener noreferrer" class="discord-button">「💼」ᴇᴍᴘʟᴇᴏ</a>
+            </div>
+            <div class="faq-item">
+                <h3>Asociaciones</h3>
+                <p>Si deseas negociar cualquier tipo de asociación entre tu entidad y Laforêt, te invitamos a ponerte en contacto con los responsables correspondientes en el canal de asociaciones.</p>
+                <a href="https://discord.com/channels/1253828405833502801/1253859633374691388" target="_blank" rel="noopener noreferrer" class="discord-button">「🤝🏽」ᴀꜱᴏᴄɪᴀᴄɪóɴ</a>
+            </div>
+            <div class="faq-item">
+                <h3>Soporte</h3>
+                <p>Si necesitas soporte especializado, por favor contacta con nosotros a través de un ticket específico. Si tu consulta es más general, puedes preguntar en el canal correspondiente.</p>
+                <a href="https://discord.com/channels/1253828405833502801/1253860690955866225" target="_blank" rel="noopener noreferrer" class="discord-button">「🎫」soporte</a>
+            </div>
+            <div class="faq-item">
+                <h3>Soporte General</h3>
+                <p>Canal dedicado a hacer consultas breves, que no requieran de nadie en específico y pueda ser respondido por todo el mundo.</p>
+                <a href="https://discord.com/channels/1253828405833502801/1253845192151269426" target="_blank" rel="noopener noreferrer" class="discord-button">「❔」ᴄᴏɴꜱᴜʟᴛᴀꜱ</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2024 Laforêt Group. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para obtener los datos del usuario y actualizar la UI
+        async function updateUserInfo() {
+            try {
+                const response = await fetch('/user');
+                const user = await response.json();
+                if (user) {
+                    document.getElementById('user-info').style.display = 'flex';
+                    document.getElementById('user-avatar').src = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : '';
+                    document.getElementById('user-name').textContent = user.username;
+                    document.getElementById('login-link').style.display = 'none'; // Ocultar el botón de Login si el usuario está autenticado
+                } else {
+                    document.getElementById('login-link').style.display = 'block'; // Mostrar el botón de Login si no hay usuario
+                }
+            } catch (error) {
+                console.error('Error al obtener la información del usuario:', error);
+            }
+        }
+
+        // Actualiza la información del usuario al cargar la página
+        window.onload = updateUserInfo;
+    </script>
+</body>
+</html>
